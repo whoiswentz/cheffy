@@ -1,1 +1,18 @@
-{:deps {}}
+{:paths
+ ["src/config"
+  "src/main"
+  "src/resources"]
+
+ :deps
+ {io.pedestal/pedestal.service {:mvn/version "0.8.1"}
+  io.pedestal/pedestal.route   {:mvn/version "0.8.1"}
+  io.pedestal/pedestal.jetty   {:mvn/version "0.8.1"}}
+
+ :aliases
+ {:dev
+  {:extra-paths
+   ["src/dev"]}
+
+  :test
+  {:extra-paths
+   ["src/test"]}}}

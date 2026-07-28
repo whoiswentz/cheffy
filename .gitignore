@@ -12,6 +12,7 @@ pom.xml
 pom.xml.asc
 *.jar
 .nrepl-port
+.clj-kondo
 .repl-history
 
 # Mac / OS
