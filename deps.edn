@@ -6,7 +6,9 @@
  :deps
  {io.pedestal/pedestal.service {:mvn/version "0.8.1"}
   io.pedestal/pedestal.route   {:mvn/version "0.8.1"}
-  io.pedestal/pedestal.jetty   {:mvn/version "0.8.1"}}
+  io.pedestal/pedestal.jetty   {:mvn/version "0.8.1"}
+  org.clojure/tools.analyzer   {:mvn/version "1.2.2"}
+  ch.qos.logback/logback-classic {:mvn/version "1.5.6"}}
 
  :aliases
  {:dev
