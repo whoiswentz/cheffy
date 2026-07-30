@@ -17,11 +17,11 @@
 
 (def routes
   (terse/terse-routes
-    [[:cheffy :http "localhost:8000"
-      {:router :sawtooth}
-      ["/recipes" {:get  [:list-recipes `list-recipes]
-                   :post [:create-recipe `upsert-recipe]}
-       [":recipe-id" {:put [:update-recipe `upsert-recipe]}]]]]))
+   [[:cheffy :http "localhost:8000"
+     {:router :sawtooth}
+     ["/recipes" {:get  [:list-recipes `list-recipes]
+                  :post [:create-recipe `upsert-recipe]}
+      [":recipe-id" {:put [:update-recipe `upsert-recipe]}]]]]))
 
 (defn start-dev
   []
