@@ -14,7 +14,7 @@
  :aliases
  {:dev
   {:extra-paths
-   ["src/dev"]}
+   ["dev"]}
 
   :test
   {:extra-paths
