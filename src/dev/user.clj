@@ -1,4 +1,4 @@
-(ns dev.user
+(ns user
   (:require [io.pedestal.connector :as conn]
             [io.pedestal.http.jetty :as jetty]
             [cheffy.routes :as routes]))
