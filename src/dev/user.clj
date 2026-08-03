@@ -17,6 +17,7 @@
               (conn/with-routes routes/routes)
               (jetty/create-connector nil)
               (conn/start!)))
+  (println @system-ref)
   :started)
 
 (defn stop-dev
