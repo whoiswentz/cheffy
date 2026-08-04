@@ -1,28 +1,11 @@
 (ns user
-  (:require [com.stuartsierra.component :as component]
-            [cheffy.server :as server]))
+  (:require [dev]))
 
-(defonce system-ref (atom nil))
+(defn start []
+  (dev/start-dev))
 
-(defn start-dev
-  []
-  (let [system (server/create-system {:api-server {:port 3000
-                                                   :allowed-origins ["http://localhost:8080"]}
-                                      :database {:server-type :datomic-local
-                                                 :system "localhost"
-                                                 :storage-dir :mem
-                                                 :db-name "development"}})]
-    (reset! system-ref (component/start system))
-    :started))
+(defn stop []
+  (dev/stop-dev))
 
-(defn stop-dev
-  []
-  (when @system-ref
-    (component/stop @system-ref)
-    (reset! system-ref nil)
-    :stopped))
-
-(defn restart
-  []
-  (stop-dev)
-  (start-dev))
+(defn restart []
+  (dev/restart-dev))

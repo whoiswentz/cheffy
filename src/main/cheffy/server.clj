@@ -17,5 +17,8 @@
   [config-file]
   (let [config (-> config-file
                    (slurp)
-                   (edn/read-string))]
-    (component/start (create-system config))))
+                   (edn/read-string))
+        system (component/start (create-system config))]
+    (.addShutdownHook (Runtime/getRuntime)
+                      (Thread. ^Runnable #(component/stop system)))
+    system))

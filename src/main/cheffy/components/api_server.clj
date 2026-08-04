@@ -1,28 +1,20 @@
 (ns cheffy.components.api-server
-  (:require [cheffy.routes :as routes]
+  (:require [cheffy.interceptors :as interceptors]
+            [cheffy.routes :as routes]
             [com.stuartsierra.component :as component]
             [io.pedestal.connector :as conn]
-            [io.pedestal.http.jetty :as jetty]
-            [io.pedestal.interceptor :as interceptor]))
-
-(defn inject-system
-  [system]
-  (interceptor/interceptor
-    {:name ::inject-system
-     :enter (fn [ctx]
-              (update-in ctx [:request] merge system))}))
+            [io.pedestal.http.jetty :as jetty]))
 
 (defrecord ApiServer [service-map service database]
   component/Lifecycle
   (start [component]
-    (let [port            (get service-map :port 3000)
-          allowed-origins (get service-map :allowed-origins ["http://localhost:8080"])
-          started-service (-> (conn/default-connector-map port)
+    (let [{:keys [host port allowed-origins]} service-map
+          started-service (-> (conn/default-connector-map host port)
+                              (conn/with-interceptor (interceptors/inject-database database))
                               (conn/with-default-interceptors
                                 :allowed-origins allowed-origins
                                 :extra-mime-types {"json" "application/json"
                                                    "edn"  "application/edn"})
-                              (conn/with-interceptor (inject-system {:database database}))
                               (conn/with-routes routes/routes)
                               (jetty/create-connector nil)
                               (conn/start!))]

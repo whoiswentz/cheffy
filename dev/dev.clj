@@ -1,11 +1,14 @@
 (ns dev
-  (:require [clojure.edn :as edn]
-            [cheffy.server :as server]
+  (:require [cheffy.server :as server]
+            [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [com.stuartsierra.component.repl :as cr]))
 
 (defn system [_]
-      (-> (-> "src/config/development.edn" (slurp) (edn/read-string))
-          (server/create-system)))
+  (-> (io/resource "development.edn")
+      (slurp)
+      (edn/read-string)
+      (server/create-system)))
 
 (cr/set-init system)
 
