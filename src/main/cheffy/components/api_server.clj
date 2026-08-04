@@ -2,7 +2,15 @@
   (:require [cheffy.routes :as routes]
             [com.stuartsierra.component :as component]
             [io.pedestal.connector :as conn]
-            [io.pedestal.http.jetty :as jetty]))
+            [io.pedestal.http.jetty :as jetty]
+            [io.pedestal.interceptor :as interceptor]))
+
+(defn inject-system
+  [system]
+  (interceptor/interceptor
+    {:name ::inject-system
+     :enter (fn [ctx]
+              (update-in ctx [:request] merge system))}))
 
 (defrecord ApiServer [service-map service database]
   component/Lifecycle
@@ -14,6 +22,7 @@
                                 :allowed-origins allowed-origins
                                 :mime-types {"json" "application/json"
                                              "edn"  "application/edn"})
+                              (conn/with-interceptor (inject-system {:database database}))
                               (conn/with-routes routes/routes)
                               (jetty/create-connector nil)
                               (conn/start!))]
