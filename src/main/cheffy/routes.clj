@@ -13,7 +13,7 @@
 
 (def routes
   (terse/terse-routes
-    [[:cheffy :http "localhost:8000"
+    [[:cheffy :http
       {:router :sawtooth}
       ["/recipes" {:get  [:list-recipes `list-recipes]
                    :post [:create-recipe `upsert-recipe]}

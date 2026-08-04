@@ -4,7 +4,7 @@
             [com.stuartsierra.component.repl :as cr]))
 
 (defn system [_]
-      (-> (-> "src/config/cheffy/development.edn" (slurp) (edn/read-string))
+      (-> (-> "src/config/development.edn" (slurp) (edn/read-string))
           (server/create-system)))
 
 (cr/set-init system)

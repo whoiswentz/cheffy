@@ -20,8 +20,8 @@
           started-service (-> (conn/default-connector-map port)
                               (conn/with-default-interceptors
                                 :allowed-origins allowed-origins
-                                :mime-types {"json" "application/json"
-                                             "edn"  "application/edn"})
+                                :extra-mime-types {"json" "application/json"
+                                                   "edn"  "application/edn"})
                               (conn/with-interceptor (inject-system {:database database}))
                               (conn/with-routes routes/routes)
                               (jetty/create-connector nil)
