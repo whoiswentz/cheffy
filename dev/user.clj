@@ -1,5 +1,6 @@
 (ns user
-  (:require [dev]))
+  (:require [com.stuartsierra.component.repl :as cr]
+            [dev]))
 
 (defn start []
   (dev/start-dev))
