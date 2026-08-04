@@ -1,13 +1,17 @@
 (ns cheffy.server
   (:require [com.stuartsierra.component :as component]
             [clojure.edn :as edn]
-            [cheffy.components.api-server :as api-server]))
+            [cheffy.components.api-server :as api-server]
+            [cheffy.components.database :as database]))
 
 (defn create-system
   [config]
   (component/system-map
     :config config
-    :api-server (api-server/map->ApiServer {:service-map (:api-server config)})))
+    :database (database/service (:database config))
+    :api-server (component/using
+                  (api-server/service (:service-map config))
+                  [:database])))
 
 (defn -main
   [config-file]

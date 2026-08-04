@@ -4,7 +4,7 @@
             [io.pedestal.connector :as conn]
             [io.pedestal.http.jetty :as jetty]))
 
-(defrecord ApiServer [service-map service]
+(defrecord ApiServer [service-map service database]
   component/Lifecycle
   (start [component]
     (let [port            (get service-map :port 3000)
@@ -23,3 +23,7 @@
     (when service
       (conn/stop! service))
     (assoc component :service nil)))
+
+(defn service
+  [service-map]
+  (map->ApiServer {:service-map service-map}))

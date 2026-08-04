@@ -7,7 +7,11 @@
 (defn start-dev
   []
   (let [system (server/create-system {:api-server {:port 3000
-                                                   :allowed-origins ["http://localhost:8080"]}})]
+                                                   :allowed-origins ["http://localhost:8080"]}
+                                      :database {:server-type :datomic-local
+                                                 :system "localhost"
+                                                 :storage-dir :mem
+                                                 :db-name "development"}})]
     (reset! system-ref (component/start system))
     :started))
 
