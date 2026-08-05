@@ -1,5 +1,6 @@
 (ns user
   (:require [com.stuartsierra.component.repl :as cr]
+            [datomic.client.api :as d]
             [dev]))
 
 (defn start []
