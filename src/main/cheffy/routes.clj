@@ -1,10 +1,6 @@
 (ns cheffy.routes
-  (:require [io.pedestal.http.route.definition.terse :as terse]))
-
-(defn list-recipes
-  [request]
-  {:status 200
-   :body   "list recipes"})
+  (:require [cheffy.recipes :as recipes]
+            [io.pedestal.http.route.definition.terse :as terse]))
 
 (defn upsert-recipe
   [request]
@@ -13,6 +9,6 @@
 
 (def routes
   (terse/terse-routes
-    [[["/recipes" {:get  [:list-recipes `list-recipes]
+    [[["/recipes" {:get  [:list-recipes `recipes/list-recipes]
                    :post [:create-recipe `upsert-recipe]}
        ["/:recipe-id" {:put [:update-recipe `upsert-recipe]}]]]]))
